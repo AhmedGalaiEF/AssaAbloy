@@ -1,0 +1,277 @@
+ls
+from AX_PY_SDK_3 import *
+from task_library import *
+robots = get_ef_robots().query("isOnline == True")
+robots = get_ef_robots()
+cls
+robots
+    isTask  isManualMode                businessId  ...       model        errors  business_name
+40   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+41   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+42   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅  [9010, 9011]    EF Robotics
+43   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+44   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+45   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+46   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+47   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+48   False         False  668fbe1568f09f1ae8873ca3  ...          底盘            []    EF Robotics
+49   False         False  668fbe1568f09f1ae8873ca3  ...  Restaurant            []    EF Robotics
+50   False         False  668fbe1568f09f1ae8873ca3  ...  Restaurant            []    EF Robotics
+51   False         False  668fbe1568f09f1ae8873ca3  ...  Restaurant            []    EF Robotics
+52   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+53   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+54   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+55   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+56   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+57   False         False  668fbe1568f09f1ae8873ca3  ...          餐厅            []    EF Robotics
+
+[18 rows x 20 columns]
+robots.isOnLine
+40    False
+41    False
+42     True
+43    False
+44    False
+45    False
+46    False
+47    False
+48    False
+49    False
+50    False
+51    False
+52    False
+53    False
+54    False
+55    False
+56    False
+57    False
+Name: isOnLine, dtype: bool
+robots[robots[isOnLine]]
+robots[robots["isOnLine"]]
+    isTask  isManualMode                businessId  ...  model        errors  business_name
+42   False         False  668fbe1568f09f1ae8873ca3  ...     餐厅  [9010, 9011]    EF Robotics
+
+[1 rows x 20 columns]
+robots[robots["isOnLine"]].iloc[0]
+isTask                                False
+isManualMode                          False
+businessId         668fbe1568f09f1ae8873ca3
+isCharging                            False
+isRemoteMode                          False
+battery                                  96
+robotId                     8881307202099xR
+mac                                        
+yaw                                    1.65
+isError                                True
+areaId             68abfe537f3712ba01c62315
+activeStatus                              1
+isOnLine                               True
+name                                       
+x                                    0.0125
+y                                       0.2
+isEmergencyStop                       False
+model                                    餐厅
+errors                         [9010, 9011]
+business_name                   EF Robotics
+Name: 42, dtype: object
+robot = robots[robots["isOnLine"]].iloc[0]
+cls
+task_return_to_dock("test_task_099xR", robot)
+robot_c = Robot(robot.robotId)
+cls
+robot_c.get_pois()
+                     areaId                buildingId  ...    version     yaw
+0  68abfe537f3712ba01c62315  668fbdd368f09f1ae8873ca2  ...  v23.12.21   85.94
+1  68abfe537f3712ba01c62315  668fbdd368f09f1ae8873ca2  ...  v23.12.21  265.94
+2  68abfe537f3712ba01c62315  668fbdd368f09f1ae8873ca2  ...  v23.12.21  312.44
+3  68abfe537f3712ba01c62315  668fbdd368f09f1ae8873ca2  ...  v23.12.21   34.95
+4  68abfe537f3712ba01c62315  668fbdd368f09f1ae8873ca2  ...  v23.12.21  354.84
+
+[5 rows x 13 columns]
+robot_c.get_poi_details("Ladestation)
+robot_c.get_poi_details("Ladestation")
+{'areaId': '68abfe537f3712ba01c62315',
+ 'buildingId': '668fbdd368f09f1ae8873ca2',
+ 'businessId': '668fbe1568f09f1ae8873ca3',
+ 'coordinate': [0, 0],
+ 'floor': 10,
+ 'floorName': '10',
+ 'id': '68abfe7ae25372f52f733612',
+ 'name': 'Ladestation',
+ 'oldFeatureId': '68abfe7ae25372f52f733612',
+ 'properties': {'deviceIds': None,
+  'dockingPointId': '68abfe867f2f577661e02450',
+  'mapOverlay': True,
+  'subtype': '24v'},
+ 'type': 9,
+ 'version': 'v23.12.21',
+ 'yaw': 85.94}
+poi_details = robot_c.get_poi_details("Ladestation")
+poi = poi_details
+p = point(poi.x, poi.y, poi.areaId)
+p = point(poi.coordinate[0], poi.coordinate[1], poi.areaId, poi.yaw)
+p = point(poi["coordinate"][0], poi["coordinate"][1], poi["areaId"], poi["yaw"])
+p
+{'x': 0,
+ 'y': 0,
+ 'yaw': 85.94,
+ 'stopRadius': 1,
+ 'areaId': '68abfe537f3712ba01c62315',
+ 'type': -1,
+ 'ext': {}}
+p["type"] = 9
+p
+{'x': 0,
+ 'y': 0,
+ 'yaw': 85.94,
+ 'stopRadius': 1,
+ 'areaId': '68abfe537f3712ba01c62315',
+ 'type': 9,
+ 'ext': {}}
+task_go_C("test_099xR", robot, p["areaId"], p["x"], p["y"], p["yaw"])
+cls
+task_dict = {
+        "name": task_name,
+        "robotId": robot.robotId,
+        "businessId": robot.businessId,
+        "runNum": runNum,
+        "taskType": taskType,
+        "runType": runType,
+        "routeMode": routeMode,
+        "runMode": runMode,
+        "taskPts": taskPts,
+        "sourceType": sourceType,
+        "ignorePublicSite": ignorePublicSite,
+        "speed": speed,
+        "detourRadius": detourRadius,
+        "backPt": backPt,
+    }
+task_name = "text_o99xR"
+runNum = 1
+tyskType = 1
+runType = 24
+routeMode = 1
+runMode = 1
+taskPts = [p]
+sourceType = 0
+speed = 0.4
+detourRadius = 1
+backPt = [p]
+backPt = p
+ignorePublicSite = False
+task_dict = {
+        "name": task_name,
+        "robotId": robot.robotId,
+        "businessId": robot.businessId,
+        "runNum": runNum,
+        "taskType": taskType,
+        "runType": runType,
+        "routeMode": routeMode,
+        "runMode": runMode,
+        "taskPts": taskPts,
+        "sourceType": sourceType,
+        "ignorePublicSite": ignorePublicSite,
+        "speed": speed,
+        "detourRadius": detourRadius,
+        "backPt": backPt,
+    }
+taskType = 1
+task_dict = {
+        "name": task_name,
+        "robotId": robot.robotId,
+        "businessId": robot.businessId,
+        "runNum": runNum,
+        "taskType": taskType,
+        "runType": runType,
+        "routeMode": routeMode,
+        "runMode": runMode,
+        "taskPts": taskPts,
+        "sourceType": sourceType,
+        "ignorePublicSite": ignorePublicSite,
+        "speed": speed,
+        "detourRadius": detourRadius,
+        "backPt": backPt,
+    }
+task_dict
+{'name': 'text_o99xR',
+ 'robotId': '8881307202099xR',
+ 'businessId': '668fbe1568f09f1ae8873ca3',
+ 'runNum': 1,
+ 'taskType': 1,
+ 'runType': 24,
+ 'routeMode': 1,
+ 'runMode': 1,
+ 'taskPts': [{'x': 0,
+   'y': 0,
+   'yaw': 85.94,
+   'stopRadius': 1,
+   'areaId': '68abfe537f3712ba01c62315',
+   'type': 9,
+   'ext': {}}],
+ 'sourceType': 0,
+ 'ignorePublicSite': False,
+ 'speed': 0.4,
+ 'detourRadius': 1,
+ 'backPt': {'x': 0,
+  'y': 0,
+  'yaw': 85.94,
+  'stopRadius': 1,
+  'areaId': '68abfe537f3712ba01c62315',
+  'type': 9,
+  'ext': {}}}
+url = _build_url(URL_BASE, URL_ROUTING_DICT['create_task'])
+    r = requests.post(url, headers={"X-Token": X_TOKEN}, json=task_dict)
+url = _build_url(URL_BASE, URL_ROUTING_DICT['create_task'])r = requests.post(url, headers={"X-Token": X_TOKEN}, json=task_dict)
+url = _build_url(URL_BASE, URL_ROUTING_DICT['create_task'])
+r = requests.post(url, headers={"X-Token": X_TOKEN}, json=task_dict)
+url = "https://apiglobal.autoxing.com/task/v3/create"
+r = requests.post(url, headers={"X-Token": X_TOKEN}, json=task_dict)
+r
+<Response [200]>
+r = requests.post(url, headers={"X-Token": X_TOKEN}, json=task_dict)
+r = requests.post(url, headers={"X-Token": X_TOKEN}, json=task_dict)
+r = requests.post(url, headers={"X-Token": X_TOKEN}, json=task_dict)
+get_robots()
+    isTask  isManualMode  ...   errors                           business_name
+0    False         False  ...       []                               AK Müller
+1    False         False  ...       []                                Sebotics
+2    False         False  ...       []                      Müller Kunststoffe
+3    False         False  ...       []                            Arvato Media
+4    False         False  ...       []                               Arvato SE
+..     ...           ...  ...      ...                                     ...
+69   False         False  ...       []                              Lenzenberg
+70    True         False  ...       []                               ATJ Halle
+71   False         False  ...  [11012]             Event Rent Hamburg 29.01.24
+72   False         False  ...       []             Event Rent Hamburg 29.01.24
+73   False         False  ...       []  Germany Potential Distributor Training
+
+[74 rows x 20 columns]
+robot
+isTask                                False
+isManualMode                          False
+businessId         668fbe1568f09f1ae8873ca3
+isCharging                            False
+isRemoteMode                          False
+battery                                  96
+robotId                     8881307202099xR
+mac                                        
+yaw                                    1.65
+isError                                True
+areaId             68abfe537f3712ba01c62315
+activeStatus                              1
+isOnLine                               True
+name                                       
+x                                    0.0125
+y                                       0.2
+isEmergencyStop                       False
+model                                    餐厅
+errors                         [9010, 9011]
+business_name                   EF Robotics
+Name: 42, dtype: object
+robot_c
+Robot(id='8881307202099xR', business=50, model=餐厅, isOnLine=True)
+print(robot_c)
+%history
+%history -o basic_task_ipy_history.txt
+ls
+%history -o -f basic_task_ipy_history.txt
